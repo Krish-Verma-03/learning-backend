@@ -1,4 +1,6 @@
 import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = new Schema(
   {
@@ -51,7 +53,7 @@ const userSchema = new Schema(
 //next is actually pointer to next middleware
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next(); // if password is not modified, no need to hash it
-  this.password = bcrypt.hash(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 // Checking Password Correctness

@@ -15,4 +15,11 @@ app.use(express.urlencoded({extended:true,limit: "16kb"}))
 // to handle files images etc...i.e. static data
 app.use(express.static("public"))
 app.use(cookieParser());
+
+//routes import
+import userRouter from "./routes/user.routes.js";
+
+//route declarations
+app.use("/api/v1/users",userRouter)
+
 export {app}
